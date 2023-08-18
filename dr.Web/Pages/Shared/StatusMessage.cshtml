@@ -1,0 +1,10 @@
+﻿@using _0_Framework.Application
+@model string
+
+@if (!string.IsNullOrEmpty(Model))
+{
+    var statusMessageClass = Model.Contains(OperationMessages.SuccessKey) ? "success" : "danger";
+    <div class="alert alert-@statusMessageClass alert-dismissible" role="alert">
+        @Model
+    </div>
+}
