@@ -72,21 +72,21 @@ namespace dr.Infrastracture.Migrations
                         new
                         {
                             Id = 1,
-                            CreationDate = new DateTime(2023, 8, 19, 16, 13, 35, 412, DateTimeKind.Local).AddTicks(180),
+                            CreationDate = new DateTime(2023, 8, 19, 21, 38, 52, 783, DateTimeKind.Local).AddTicks(3578),
                             FaName = "دکتر",
                             Name = "Doctor"
                         },
                         new
                         {
                             Id = 2,
-                            CreationDate = new DateTime(2023, 8, 19, 16, 13, 35, 414, DateTimeKind.Local).AddTicks(99),
+                            CreationDate = new DateTime(2023, 8, 19, 21, 38, 52, 783, DateTimeKind.Local).AddTicks(8359),
                             FaName = "منشی",
                             Name = "assistant"
                         },
                         new
                         {
                             Id = 3,
-                            CreationDate = new DateTime(2023, 8, 19, 16, 13, 35, 414, DateTimeKind.Local).AddTicks(128),
+                            CreationDate = new DateTime(2023, 8, 19, 21, 38, 52, 783, DateTimeKind.Local).AddTicks(8369),
                             FaName = "مشتری",
                             Name = "Customer"
                         });

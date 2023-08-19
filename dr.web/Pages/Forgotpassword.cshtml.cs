@@ -10,6 +10,12 @@ namespace dr.Web.Pages
         [TempData]
         public string Message { get; set; }
         private readonly IUserApplication _userApplication;
+
+        public ForgotpasswordModel(IUserApplication userApplication)
+        {
+            _userApplication = userApplication;
+        }
+
         public void OnGet()
         {
         }
@@ -17,8 +23,7 @@ namespace dr.Web.Pages
         public IActionResult OnPostSendForgotPasswordCode(string email)
         {
             var result = _userApplication.CreateAndSendVerificationCode(email);
-            Message = result.Message;
-            return Page();
+            return new JsonResult(result);
         }
 
         public IActionResult OnPostVerifyCode(string token)

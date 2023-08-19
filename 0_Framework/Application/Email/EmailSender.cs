@@ -18,7 +18,7 @@ namespace _0_Framework.Application.Email
                 // send email
             }
             timer.Stop();
-            throw null;
+            return new OperationResult().Succdded();
         }
     }
 }

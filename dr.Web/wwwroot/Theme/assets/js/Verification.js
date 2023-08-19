@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     var sendVerificationCodeForm = document.getElementById("SendVerificationCode");
     var verifyCodeForm = document.getElementById("verifyCodeForm");
     sendVerificationCodeForm.addEventListener("submit", e => {
+        debugger;
         e.preventDefault();
         var sendVerificationCodeFormData = $(sendVerificationCodeForm).serialize(); 
         $.ajax({
@@ -35,9 +36,15 @@ document.addEventListener("DOMContentLoaded", () => {
             data: sendVerificationCodeFormData,
             async: false
         }).done(function (response) {
-            sendVerificationCodeForm.classList.add("hideForm");
-            verifyCodeForm.classList.remove("hideForm");
-            setFormMessage(verifyCodeForm, "success", response.responseText);
+            if (response.isSuccedded) {
+                sendVerificationCodeForm.classList.add("hideForm");
+                verifyCodeForm.classList.remove("hideForm");
+                setFormMessage(verifyCodeForm, "success", response.message);
+            } else {
+                sendVerificationCodeForm.classList.remove("hideForm");
+                verifyCodeForm.classList.add("hideForm");
+                setFormMessage(sendVerificationCodeForm, "danger", response.message);
+            }
         }).fail(function (response) {
             sendVerificationCodeForm.classList.remove("hideForm");
             verifyCodeForm.classList.add("hideForm");

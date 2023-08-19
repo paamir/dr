@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+
 namespace dr.Infrastracture.Migrations
 {
     public partial class CreateDatabase : Microsoft.EntityFrameworkCore.Migrations.Migration
@@ -45,20 +46,48 @@ namespace dr.Infrastracture.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "Roles",
-                columns: new[] { "Id", "CreationDate", "FaName", "Name" },
-                values: new object[] { 1, new DateTime(2023, 8, 19, 11, 39, 39, 964, DateTimeKind.Local).AddTicks(5983), "دکتر", "Doctor" });
+            migrationBuilder.CreateTable(
+                name: "RecoverCodes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExpireDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RecoverCodes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RecoverCodes_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "CreationDate", "FaName", "Name" },
-                values: new object[] { 2, new DateTime(2023, 8, 19, 11, 39, 39, 966, DateTimeKind.Local).AddTicks(5190), "منشی", "assistant" });
+                values: new object[] { 1, new DateTime(2023, 8, 19, 21, 38, 52, 783, DateTimeKind.Local).AddTicks(3578), "دکتر", "Doctor" });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "CreationDate", "FaName", "Name" },
-                values: new object[] { 3, new DateTime(2023, 8, 19, 11, 39, 39, 966, DateTimeKind.Local).AddTicks(5208), "مشتری", "Customer" });
+                values: new object[] { 2, new DateTime(2023, 8, 19, 21, 38, 52, 783, DateTimeKind.Local).AddTicks(8359), "منشی", "assistant" });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "CreationDate", "FaName", "Name" },
+                values: new object[] { 3, new DateTime(2023, 8, 19, 21, 38, 52, 783, DateTimeKind.Local).AddTicks(8369), "مشتری", "Customer" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RecoverCodes_UserId",
+                table: "RecoverCodes",
+                column: "UserId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",
@@ -68,6 +97,9 @@ namespace dr.Infrastracture.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "RecoverCodes");
+
             migrationBuilder.DropTable(
                 name: "Users");
 
