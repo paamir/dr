@@ -80,6 +80,10 @@
 			<input type="password" asp-for="RegisterUser.Password" placeholder="رمز عبور" required>
 			<span class="text-danger" asp-validation-for="RegisterUser.Password"></span>
 		</div>
+		<div class="form-group">
+			<input type="password" asp-for="RegisterUser.PasswordReCheck" placeholder="تایید رمز عبور" required>
+			<span class="text-danger" asp-validation-for="RegisterUser.PasswordReCheck"></span>
+		</div>
 		<button type="submit">Login</button>
 	</form>
 </div>

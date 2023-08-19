@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using _0_Framework.Application;
 using _0_Framework.Domain;
 using dr.Application.Contract.Role;
@@ -9,7 +11,7 @@ namespace dr.Domain.Entities.User
     public interface IUserRepository : IGenericRepository<User>
     {
         List<UserViewModel> Search(UserSearchModel model);
-        UserEditModel GetDetails(int id);
+        UserEditModel GetDetails(int id);   
         User GetBy(string mobile);
         List<RoleViewModel> GetAllRoles();
     }

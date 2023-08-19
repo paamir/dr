@@ -1,5 +1,6 @@
 using System;
 using _0_Framework.Application;
+using _0_Framework.Application.Email;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -36,8 +37,9 @@ namespace dr.Web
             services.AddTransient<IUserApplication, UserApplication>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IAuthHelper, AuthHelper>();
+            services.AddTransient<IEmailSender, EmailSender>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-			services.Configure<CookiePolicyOptions>(options =>
+            services.Configure<CookiePolicyOptions>(options =>
             {
 	            //this line does access to tempData work 
 	            // options.CheckConsentNeeded = context => true;
@@ -48,7 +50,7 @@ namespace dr.Web
 	            {
 		            o.LoginPath = new PathString("/Login");
 		            o.LogoutPath = new PathString("/Login");
-		            o.AccessDeniedPath = new PathString("/Login");
+		            o.AccessDeniedPath = new PathString("/Index");
 		            o.ExpireTimeSpan = TimeSpan.FromDays(7);
 	            });
 			services.AddAuthorization(option =>

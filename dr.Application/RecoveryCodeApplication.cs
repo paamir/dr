@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using _0_Framework.Application;
+using dr.Application.Contract.Recovery;
+using dr.Domain.Entities.RecoveryCode;
+
+namespace dr.Application
+{
+    public class RecoveryCodeApplication : IRecoveryCodeApplication
+    {
+        private readonly IRecoverCodeRepository _recoverCodeRepository;
+
+        public RecoveryCodeApplication(IRecoverCodeRepository recoverCodeRepository)
+        {
+            _recoverCodeRepository = recoverCodeRepository;
+        }
+
+        public OperationResult Create(RecoveryCreateModel model)
+        {
+            var result = new OperationResult();
+            var recoveryCode = _recoverCodeRepository.GetBy(x => x.UserId == model.UserId);
+            if (recoveryCode == null)
+            {
+                 recoveryCode = new RecoverCode(model.Code, model.UserId);
+                _recoverCodeRepository.Create(recoveryCode);
+                _recoverCodeRepository.SaveChanges();
+                return result.Succdded();
+            }
+            if (recoveryCode.ExpireDate > DateTime.Now)
+                return result.Failed(ValidationModel.TokenNotExpire);
+
+            recoveryCode.Edit(model.Code);
+            _recoverCodeRepository.SaveChanges();
+            return result.Succdded();
+        }
+
+        public RecoverCodeViewModel GetBy(string code)
+        {
+            return _recoverCodeRepository.GetBy(code);
+        }
+    }
+}

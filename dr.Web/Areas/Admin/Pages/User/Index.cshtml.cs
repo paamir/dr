@@ -41,6 +41,10 @@ namespace dr.Web.Areas.Admin.Pages.User
         }
         public IActionResult OnPostCreate(UserCreateModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             var result = _application.Create(model);
             Message = result.Message;
             return new JsonResult(result);
@@ -57,6 +61,10 @@ namespace dr.Web.Areas.Admin.Pages.User
 
         public IActionResult OnPostChangePassword(UserChangePasswordModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             var result = _application.ChangePassword(model);
             Message = result.Message;
             return new JsonResult(result);
@@ -70,6 +78,10 @@ namespace dr.Web.Areas.Admin.Pages.User
 
         public IActionResult OnPostEdit(UserEditModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             var result = _application.Edit(model);
             Message = result.Message;
             return new JsonResult(result);

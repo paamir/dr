@@ -22,6 +22,11 @@ namespace _0_Framework.Interfaces
         public T Get(int id)
         {
             return _dbContext.Find<T>(id);
+        }       
+
+        public T GetBy(Expression<Func<T, bool>> expression)
+        {
+            return _dbContext.Set<T>().FirstOrDefault(expression);
         }
 
         public void Create(T entity)

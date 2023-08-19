@@ -15,5 +15,7 @@ namespace dr.Application.Contract.User
         OperationResult Login(UserLoginModel model);
         List<RoleViewModel> GetAllRoles();
         void LogOut();
+        OperationResult CreateAndSendVerificationCode(string email);
+        OperationResult CheckRecoverCode(string token);
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using _0_Framework.Domain;
+using dr.Domain.Entities.RecoveryCode;
 
 namespace dr.Domain.Entities.User
 {
@@ -15,6 +16,7 @@ namespace dr.Domain.Entities.User
         public string Email { get; private set; }
         public int RoleId { get; private set; }
         public Role.Role Role { get; set; }
+        public RecoverCode RecoverCode { get; set; }
 
         public User(string name, string mobile, string password, string email, int roleId)
         {
@@ -38,5 +40,6 @@ namespace dr.Domain.Entities.User
         {
             Password = password;
         }
+
     }
 }

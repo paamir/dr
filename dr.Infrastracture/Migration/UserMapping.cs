@@ -21,6 +21,7 @@ namespace dr.Infrastracture.Migration
             builder.Property(x => x.Name).IsRequired().HasMaxLength(500);
             builder.Property(x => x.RoleId).IsRequired();
 
+
         }
     }
 }

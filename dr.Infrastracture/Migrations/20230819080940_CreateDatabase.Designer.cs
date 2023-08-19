@@ -3,48 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using dr.Infrastracture;
 
 namespace dr.Infrastracture.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230819080940_CreateDatabase")]
+    partial class CreateDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("dr.Domain.Entities.RecoveryCode.RecoverCode", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExpireDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("RecoverCodes");
-                });
 
             modelBuilder.Entity("dr.Domain.Entities.Role.Role", b =>
                 {
@@ -72,21 +47,21 @@ namespace dr.Infrastracture.Migrations
                         new
                         {
                             Id = 1,
-                            CreationDate = new DateTime(2023, 8, 19, 16, 13, 35, 412, DateTimeKind.Local).AddTicks(180),
+                            CreationDate = new DateTime(2023, 8, 19, 11, 39, 39, 964, DateTimeKind.Local).AddTicks(5983),
                             FaName = "دکتر",
                             Name = "Doctor"
                         },
                         new
                         {
                             Id = 2,
-                            CreationDate = new DateTime(2023, 8, 19, 16, 13, 35, 414, DateTimeKind.Local).AddTicks(99),
+                            CreationDate = new DateTime(2023, 8, 19, 11, 39, 39, 966, DateTimeKind.Local).AddTicks(5190),
                             FaName = "منشی",
                             Name = "assistant"
                         },
                         new
                         {
                             Id = 3,
-                            CreationDate = new DateTime(2023, 8, 19, 16, 13, 35, 414, DateTimeKind.Local).AddTicks(128),
+                            CreationDate = new DateTime(2023, 8, 19, 11, 39, 39, 966, DateTimeKind.Local).AddTicks(5208),
                             FaName = "مشتری",
                             Name = "Customer"
                         });
@@ -132,17 +107,6 @@ namespace dr.Infrastracture.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("dr.Domain.Entities.RecoveryCode.RecoverCode", b =>
-                {
-                    b.HasOne("dr.Domain.Entities.User.User", "User")
-                        .WithOne("RecoverCode")
-                        .HasForeignKey("dr.Domain.Entities.RecoveryCode.RecoverCode", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("dr.Domain.Entities.User.User", b =>
                 {
                     b.HasOne("dr.Domain.Entities.Role.Role", "Role")
@@ -157,11 +121,6 @@ namespace dr.Infrastracture.Migrations
             modelBuilder.Entity("dr.Domain.Entities.Role.Role", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("dr.Domain.Entities.User.User", b =>
-                {
-                    b.Navigation("RecoverCode");
                 });
 #pragma warning restore 612, 618
         }
