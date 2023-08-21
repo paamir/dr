@@ -18,6 +18,6 @@ namespace _0_Framework.Application
         public const string PasswordNotValid = "پسورد حتما باید 6 حرف یا بیشتر باشد و حداقل از یک حرف انگلیسی و یک عدد استفاده بشود";
         public const string TokenNotExpire = "کد فراموشی رمز عبور برای شما ارسال شده است لطفا تا پایان زمان کد قبلی صبر نمایید و دوباره تلاش نمایید با تشکمر";
         public const string TokenIsWrong = "کد اشتباه است پس از برسسی مجدد دوباره تلاش کنید";
-
+        public const string TokenExpired = "زمان شما برای انجام عملیات به اتمام رسیده است";
     }
 }

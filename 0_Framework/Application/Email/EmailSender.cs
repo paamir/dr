@@ -9,7 +9,7 @@ namespace _0_Framework.Application.Email
 {
     public class EmailSender : IEmailSender
     {
-        public OperationResult SendEmail(string email, string code, int timeSendCanBeLong = 20)
+        public OperationResult SendEmail(string email, string code, int timeSendCanBeLong = 2)
         {
             Stopwatch timer = new Stopwatch();
             timer.Start();

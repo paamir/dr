@@ -11,5 +11,7 @@ namespace dr.Application.Contract.Recovery
     {
         public OperationResult Create(RecoveryCreateModel model);
         public RecoverCodeViewModel GetBy(string token);
+        public void Delete(string token);
+        public RecoverCodeViewModel GetBy(int Id);
     }
 }

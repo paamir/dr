@@ -50,12 +50,10 @@ namespace dr.Web.Areas.Admin.Pages.User
             return new JsonResult(result);
         }
 
-        public IActionResult OnGetChangePassword(int id)
+        public IActionResult OnGetChangePassword(string email)
         {
-            var changePassword = new UserChangePasswordModel()
-            {
-                Id = id
-            };
+	        var changePassword = new UserChangePasswordModel();
+            changePassword.SetEmail(email);
             return Partial("ChangePassword", changePassword);
         }
 

@@ -45,6 +45,10 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Register">Register</a>
 	                        </li>
+                        }else{
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="login" asp-page-handler="logOut">LogOut</a>
+                            </li>
                         }
                         @if (user.RoleId.ToString() != Roles.Customer && _AuthHelper.IsAuthenticated())
                         {

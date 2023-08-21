@@ -65,10 +65,13 @@
 			<input type="text" id="username" asp-for="LoginUser.Mobile" placeholder="شماره موبایل" required>
 			<span class="text-danger" asp-validation-for="LoginUser.Mobile"></span>
 		</div>
-		<div class="form-group">
-			<input type="password" id="password" asp-for="LoginUser.Password" placeholder="رمز عبور" required>
-			<span class="text-danger" asp-validation-for="LoginUser.Password"></span>
-		</div>
+        <div class="form-group">
+            <input type="password" id="password" asp-for="LoginUser.Password" placeholder="رمز عبور" required>
+            <span class="text-danger" asp-validation-for="LoginUser.Password"></span>
+        </div>
+        <div class="form-group">
+			<a asp-page="./ForgotPassword">Forgot Password</a>
+        </div>
 		<button type="submit">Login</button>
 	</form>
 </div>

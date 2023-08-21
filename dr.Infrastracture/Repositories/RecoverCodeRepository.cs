@@ -23,5 +23,14 @@ namespace dr.Infrastracture.Repositories
         {
             return _context.RecoverCodes.Select(x => new RecoverCodeViewModel() {Code = x.Code, ExpireDate = x.ExpireDate, UserId = x.UserId}).FirstOrDefault(x => x.Code == code);
         }
+
+        public void Delete(string token)
+        {
+	        var Token = _context.RecoverCodes.FirstOrDefault(x => x.Code == token);
+	        if (Token != null)
+	        {
+		        _context.RecoverCodes.Remove(Token);
+	        }
+        }
     }
 }

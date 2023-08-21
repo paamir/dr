@@ -17,7 +17,8 @@ namespace dr.Domain.Entities.RecoveryCode
         public RecoverCode(string code, int userId)
         {
             Code = code;
-            ExpireDate = DateTime.Now.AddMinutes(2);
+            //this 12 minute is 2 minute for varify and 10 min for change password 
+            ExpireDate = DateTime.Now.AddMinutes(12);
             UserId = userId;
         }
 

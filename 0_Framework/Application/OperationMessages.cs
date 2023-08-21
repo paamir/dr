@@ -12,7 +12,7 @@ namespace _0_Framework.Application
         public const string SuccessKey = "با موفقیت انجام شد";
         public const string RecordNotFound = "مقدار مورد نظر یافت نشد";
         public const string Duplicate = "امکان ثبت رکورد تکراری وجود ندارد";
-        public const string DuplicateUser = "کاربری با این شماره موبایل ثبت شده است لطفا شماره موبایل دیگری را امتحان کنید";
+        public const string DuplicateUser = "کاربری با این شماره موبایل یا ایمیل ثبت شده است اگز از شماره موبایل خود اطمینان دارید ایمیل دیگری را امتحان نمایید";
 
 
         public const string PasswordsNotMatch =

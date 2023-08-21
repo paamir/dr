@@ -10,6 +10,7 @@ namespace _0_Framework.Application
     {
         public bool IsSuccedded { get; set; }
         public string Message { get; set; }
+        public string Email { get; set; }
 
         public OperationResult()
         {

@@ -34,7 +34,7 @@ namespace dr.Application
         {
             var result = new OperationResult();
             if (model.PasswordReCheck != model.Password) return result.Failed(ValidationModel.PasswordCompare);
-            if (_userRepository.Exist(x => x.Mobile == model.Mobile))
+            if (_userRepository.Exist(x => x.Mobile == model.Mobile || x.Email == model.Email))
                 return result.Failed(OperationMessages.DuplicateUser);
             var hashedPassword = model.Password.ToHash();
             var user = new User(model.Name, model.Mobile, hashedPassword, model.Email, model.RoleId);
@@ -129,6 +129,30 @@ namespace dr.Application
             if (recoverCode.ExpireDate < DateTime.Now)
                 return result.Failed(ValidationModel.TokenIsWrong);
             return result.Succdded("کد شما تایید شد");
+        }
+
+        public int GetUserIdByTokenAndDeleteToken(string token)
+        {
+	        var Token = _recoveryCodeApplication.GetBy(token);
+            if (Token == null) return 0;
+            var userId = Token.UserId;
+            _recoveryCodeApplication.Delete(token);
+            return Token.UserId;
+        }
+
+        public int GetUserIdBy(string token)
+        {
+			var Token = _recoveryCodeApplication.GetBy(token);
+			if (Token == null) return 0;
+			return Token.UserId;
+        }
+
+        public OperationResult CustomerChangePassword(UserChangePasswordModel newPassword)
+        {
+	        var result = new OperationResult();
+	        var recoverCode = _recoveryCodeApplication.GetBy(newPassword.Id);
+	        if (recoverCode.ExpireDate > DateTime.Now) return result.Failed(ValidationModel.TokenExpired);
+	        return result.Succdded();
         }
     }
 }

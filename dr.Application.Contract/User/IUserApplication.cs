@@ -17,5 +17,8 @@ namespace dr.Application.Contract.User
         void LogOut();
         OperationResult CreateAndSendVerificationCode(string email);
         OperationResult CheckRecoverCode(string token);
+        int GetUserIdByTokenAndDeleteToken(string token);
+        int GetUserIdBy(string token);
+        OperationResult CustomerChangePassword(UserChangePasswordModel newPassword);
     }
 }

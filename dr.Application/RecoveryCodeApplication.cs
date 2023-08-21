@@ -29,7 +29,8 @@ namespace dr.Application
                 _recoverCodeRepository.SaveChanges();
                 return result.Succdded();
             }
-            if (recoveryCode.ExpireDate > DateTime.Now)
+            //this add 10 minutes is for we added 10 min in database for change password
+            if (recoveryCode.ExpireDate > DateTime.Now.AddMinutes(10))
                 return result.Failed(ValidationModel.TokenNotExpire);
 
             recoveryCode.Edit(model.Code);
@@ -40,6 +41,22 @@ namespace dr.Application
         public RecoverCodeViewModel GetBy(string code)
         {
             return _recoverCodeRepository.GetBy(code);
+        }
+
+        public void Delete(string token)
+        {
+	        _recoverCodeRepository.Delete(token);
+        }
+
+        public RecoverCodeViewModel GetBy(int Id)
+        {
+	        var recoverCode = _recoverCodeRepository.GetBy(x => x.UserId == Id);
+	        return new RecoverCodeViewModel()
+	        {
+                UserId = recoverCode.UserId,
+                Code = recoverCode.Code,
+                ExpireDate = recoverCode.ExpireDate,
+	        };
         }
     }
 }

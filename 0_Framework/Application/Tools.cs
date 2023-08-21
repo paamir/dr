@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Options;
 
 namespace _0_Framework.Application
 {
@@ -13,9 +16,62 @@ namespace _0_Framework.Application
         private static readonly string[] MonthNames =
             { "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند" };
 
-        // public static string[] DayNames = {"شنبه", "یکشنبه", "دو شنبه", "سه شنبه", "چهار شنبه", "پنج شنبه", "جمعه"};
-        // public static string[] DayNamesG = {"یکشنبه", "دو شنبه", "سه شنبه", "چهار شنبه", "پنج شنبه", "جمعه", "شنبه"};
-        public static string ToHash(this string usrString)
+		// public static string[] DayNames = {"شنبه", "یکشنبه", "دو شنبه", "سه شنبه", "چهار شنبه", "پنج شنبه", "جمعه"};
+		// public static string[] DayNamesG = {"یکشنبه", "دو شنبه", "سه شنبه", "چهار شنبه", "پنج شنبه", "جمعه", "شنبه"};
+		private const string key = "b14ca5898a4e4133bbce2ea2315a1916";
+		public static string EncryptString(this string plainText)
+		{
+			byte[] iv = new byte[16];
+			byte[] array;
+
+			using (Aes aes = Aes.Create())
+			{
+				aes.Key = Encoding.UTF8.GetBytes(key);
+				aes.IV = iv;
+
+				ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+				using (MemoryStream memoryStream = new MemoryStream())
+				{
+					using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, encryptor, CryptoStreamMode.Write))
+					{
+						using (StreamWriter streamWriter = new StreamWriter((Stream)cryptoStream))
+						{
+							streamWriter.Write(plainText);
+						}
+
+						array = memoryStream.ToArray();
+					}
+				}
+			}
+
+			return Convert.ToBase64String(array);
+		}
+
+		public static string DecryptString(this string cipherText)
+		{
+			byte[] iv = new byte[16];
+			byte[] buffer = Convert.FromBase64String(cipherText);
+
+			using (Aes aes = Aes.Create())
+			{
+				aes.Key = Encoding.UTF8.GetBytes(key);
+				aes.IV = iv;
+				ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+
+				using (MemoryStream memoryStream = new MemoryStream(buffer))
+				{
+					using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, decryptor, CryptoStreamMode.Read))
+					{
+						using (StreamReader streamReader = new StreamReader((Stream)cryptoStream))
+						{
+							return streamReader.ReadToEnd();
+						}
+					}
+				}
+			}
+		}
+		public static string ToHash(this string usrString)
         {
             // Use input string to calculate MD5 hash
             using (MD5 md5 = MD5.Create())

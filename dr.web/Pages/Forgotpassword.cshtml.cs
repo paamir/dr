@@ -2,6 +2,7 @@ using dr.Application.Contract.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Reflection;
+using _0_Framework.Application;
 
 namespace dr.Web.Pages
 {
@@ -23,6 +24,7 @@ namespace dr.Web.Pages
         public IActionResult OnPostSendForgotPasswordCode(string email)
         {
             var result = _userApplication.CreateAndSendVerificationCode(email);
+            result.Email = email.EncryptString();
             return new JsonResult(result);
         }
 
@@ -30,6 +32,11 @@ namespace dr.Web.Pages
         {
             var result = _userApplication.CheckRecoverCode(token);
             Message = result.Message;
+            if (result.IsSuccedded)
+            {
+                return RedirectToPage("ChangePassword", new{token});
+            }
+
             return Page();
         }
     }

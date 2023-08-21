@@ -26,8 +26,8 @@ function clearDangerAlert() {
 document.addEventListener("DOMContentLoaded", () => {
     var sendVerificationCodeForm = document.getElementById("SendVerificationCode");
     var verifyCodeForm = document.getElementById("verifyCodeForm");
+    var emailInput = document.getElementById("email");
     sendVerificationCodeForm.addEventListener("submit", e => {
-        debugger;
         e.preventDefault();
         var sendVerificationCodeFormData = $(sendVerificationCodeForm).serialize(); 
         $.ajax({
@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (response.isSuccedded) {
                 sendVerificationCodeForm.classList.add("hideForm");
                 verifyCodeForm.classList.remove("hideForm");
+                emailInput.value = response.email;
                 setFormMessage(verifyCodeForm, "success", response.message);
             } else {
                 sendVerificationCodeForm.classList.remove("hideForm");
