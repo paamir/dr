@@ -14,6 +14,7 @@ namespace dr.Domain.Entities.RecoveryCode
         public DateTime ExpireDate { get;private set; }
         public int UserId { get;private set; }
         public User.User User { get;private set; }
+
         public RecoverCode(string code, int userId)
         {
             Code = code;
@@ -22,10 +23,12 @@ namespace dr.Domain.Entities.RecoveryCode
             UserId = userId;
         }
 
+        //this
         public void Edit(string code)
         {
             Code = code;
-            ExpireDate = DateTime.Now.AddMinutes(2);
-        } 
-}
+            ExpireDate = DateTime.Now.AddMinutes(12);
+        }
+
+    }
 }

@@ -9,7 +9,6 @@ namespace dr.Web.Pages
     {
 	    private readonly IUserApplication _userApplication;
 
-	    public UserChangePasswordModel UserChangePassword { get; set; }
 		[TempData]
 		public string Message { get; set; }
 	    public ChangePasswordModel(IUserApplication userApplication)

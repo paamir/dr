@@ -11,6 +11,6 @@ namespace dr.Domain.Entities.RecoveryCode
     public interface IRecoverCodeRepository : IGenericRepository<RecoverCode>
     {
         public RecoverCodeViewModel GetBy(string code);
-        void Delete(string token);
+        void Delete(RecoverCode entity);
     }
 }

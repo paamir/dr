@@ -45,12 +45,17 @@ namespace dr.Application
 
         public void Delete(string token)
         {
-	        _recoverCodeRepository.Delete(token);
+            var recoverCode = _recoverCodeRepository.GetBy(x => x.Code == token);
+            if (recoverCode != null)
+            {
+                _recoverCodeRepository.Delete(recoverCode);
+            }
+            _recoverCodeRepository.SaveChanges();
         }
 
-        public RecoverCodeViewModel GetBy(int Id)
+        public RecoverCodeViewModel GetBy(int UserId)
         {
-	        var recoverCode = _recoverCodeRepository.GetBy(x => x.UserId == Id);
+	        var recoverCode = _recoverCodeRepository.GetBy(x => x.UserId == UserId);
 	        return new RecoverCodeViewModel()
 	        {
                 UserId = recoverCode.UserId,

@@ -117,6 +117,10 @@ namespace dr.Application
             var resultCreateRecoveryCode = _recoveryCodeApplication.Create(new RecoveryCreateModel(code, account.Id));
             if (!resultCreateRecoveryCode.IsSuccedded) return resultCreateRecoveryCode; 
             result = _emailSender.SendEmail(email, code);
+            if (!result.IsSuccedded)
+            {
+                _recoveryCodeApplication.Delete(code);
+            }
             return result;
         }
 
@@ -151,8 +155,14 @@ namespace dr.Application
         {
 	        var result = new OperationResult();
 	        var recoverCode = _recoveryCodeApplication.GetBy(newPassword.Id);
-	        if (recoverCode.ExpireDate > DateTime.Now) return result.Failed(ValidationModel.TokenExpired);
-	        return result.Succdded();
+            if (recoverCode == null) return result.Failed(OperationMessages.RecordNotFound);
+	        if (recoverCode.ExpireDate < DateTime.Now) return result.Failed(ValidationModel.TokenExpired);
+            var user = _userRepository.GetBy(x => x.Id == recoverCode.UserId);
+            if (user == null) return result.Failed(OperationMessages.RecordNotFound);
+            user.ChangePassword(newPassword.NewPassword);
+            _userRepository.SaveChanges();
+            _recoveryCodeApplication.Delete(recoverCode.Code);
+            return result.Succdded();
         }
     }
 }
