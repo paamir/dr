@@ -28,5 +28,6 @@ namespace _0_Framework.Application
         public const string NotVerifyValid = "کد احراز هویت اشتباه است";
         public const string CantSendCodeWhenTimeIsUp = "امکان ارسال کد تا اتمام زمان کد قبلی وجود ندارد";
         public const string CantSendEmailTryAgain = "متاسفانه نتوانستیم برای شما کد را ارسال کنیم لطفا دوباره تلاش نمایید";
+        public const string ShiftConflicted = "این تایم با تایم دیگیری در همین جدول زمان بندی مداخلت دارد ";
     }
 }

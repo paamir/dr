@@ -19,6 +19,39 @@ namespace dr.Infrastracture.Migrations
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("dr.Domain.Entities.Doctor.Doctor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Skill")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Doctors");
+                });
+
             modelBuilder.Entity("dr.Domain.Entities.RecoveryCode.RecoverCode", b =>
                 {
                     b.Property<int>("Id")
@@ -72,21 +105,21 @@ namespace dr.Infrastracture.Migrations
                         new
                         {
                             Id = 1,
-                            CreationDate = new DateTime(2023, 8, 19, 21, 38, 52, 783, DateTimeKind.Local).AddTicks(3578),
+                            CreationDate = new DateTime(2023, 8, 22, 11, 30, 52, 884, DateTimeKind.Local).AddTicks(8824),
                             FaName = "دکتر",
                             Name = "Doctor"
                         },
                         new
                         {
                             Id = 2,
-                            CreationDate = new DateTime(2023, 8, 19, 21, 38, 52, 783, DateTimeKind.Local).AddTicks(8359),
+                            CreationDate = new DateTime(2023, 8, 22, 11, 30, 52, 887, DateTimeKind.Local).AddTicks(4296),
                             FaName = "منشی",
                             Name = "assistant"
                         },
                         new
                         {
                             Id = 3,
-                            CreationDate = new DateTime(2023, 8, 19, 21, 38, 52, 783, DateTimeKind.Local).AddTicks(8369),
+                            CreationDate = new DateTime(2023, 8, 22, 11, 30, 52, 887, DateTimeKind.Local).AddTicks(4314),
                             FaName = "مشتری",
                             Name = "Customer"
                         });

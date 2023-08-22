@@ -14,7 +14,9 @@ using dr.Infrastracture;
 using dr.Infrastracture.Repositories;
 using Microsoft.EntityFrameworkCore;
 using _0_Framework.Interfaces;
+using dr.Application.Contract.Doctor;
 using dr.Application.Contract.Recovery;
+using dr.Domain.Entities.Doctor;
 using dr.Domain.Entities.RecoveryCode;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
@@ -42,6 +44,8 @@ namespace dr.Web
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IRecoverCodeRepository, RecoverCodeRepository>();
             services.AddTransient<IRecoveryCodeApplication, RecoveryCodeApplication>();
+            services.AddTransient<IDoctorRepository, DoctorRepository>();
+            services.AddTransient<IDoctorApplication, DoctorApplication>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.Configure<CookiePolicyOptions>(options =>
             {
