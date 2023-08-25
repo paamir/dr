@@ -10,7 +10,9 @@ namespace dr.Application.Contract.TimeTable
     public interface ITimeTableApplication
     {
         OperationResult Create(TimeTableCreateModel model);
-        OperationResult Edit(TimeTableCreateModel model);
-        List<TimeTableViewModel> Search(TimeTableCreateModel model);
+        OperationResult Edit(TimeTableEditModel model);
+        List<TimeTableViewModel> Search(TimeTableSearchModel model);
+        TimeTableEditModel GetDetails(int id);
+        List<TimeTableViewModel> List();
     }
 }

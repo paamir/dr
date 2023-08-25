@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using dr.Domain.Entities.Doctor;
 using dr.Domain.Entities.RecoveryCode;
 using dr.Domain.Entities.Role;
+using dr.Domain.Entities.ShifHours;
 using dr.Domain.Entities.TimeTable;
 using dr.Domain.Entities.User;
 using dr.Infrastracture.Migration;
@@ -21,6 +22,7 @@ namespace dr.Infrastracture
         public DbSet<RecoverCode> RecoverCodes { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<TimeTable> TimeTables { get; set; }
+        public DbSet<ShiftHours> ShiftHours { get; set; }
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }

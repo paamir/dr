@@ -9,5 +9,6 @@ namespace dr.Application.Contract.TimeTable
         public string Name { get; set; }
         public string CreationDate { get; set; }
         public List<ShiftHoursViewModel> ShiftHours { get; set; }
+        public bool ItUsed { get; set; }
     }
 }

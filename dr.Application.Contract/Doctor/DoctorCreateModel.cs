@@ -18,6 +18,8 @@ namespace dr.Application.Contract.Doctor
         public string Skill { get; set; }
         [Required(ErrorMessage = ValidationModel.IsRequired), MaxLength(1000, ErrorMessage = "این فیلد نمی اواند بیشتر از 1000 حرف باشد")]
         public string Description { get; set; }
+
+		[Range(1, 9999)]
 		public int TimeTableId { get; set; }
 		public List<TimeTableViewModel> AvailableTimeTables { get; set; }
 	}

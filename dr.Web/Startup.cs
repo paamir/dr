@@ -16,8 +16,12 @@ using Microsoft.EntityFrameworkCore;
 using _0_Framework.Interfaces;
 using dr.Application.Contract.Doctor;
 using dr.Application.Contract.Recovery;
+using dr.Application.Contract.SiftHours;
+using dr.Application.Contract.TimeTable;
 using dr.Domain.Entities.Doctor;
 using dr.Domain.Entities.RecoveryCode;
+using dr.Domain.Entities.ShifHours;
+using dr.Domain.Entities.TimeTable;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -46,6 +50,10 @@ namespace dr.Web
             services.AddTransient<IRecoveryCodeApplication, RecoveryCodeApplication>();
             services.AddTransient<IDoctorRepository, DoctorRepository>();
             services.AddTransient<IDoctorApplication, DoctorApplication>();
+            services.AddTransient<ITimeTableApplication, TimeTableApplication>();
+            services.AddTransient<ITimeTableRepository, TimeTableRepository>();
+            services.AddTransient<IShiftHoursApplication,ShiftHoursApplication>();
+            services.AddTransient<IShiftHoursRepository, ShiftHoursRepository>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.Configure<CookiePolicyOptions>(options =>
             {

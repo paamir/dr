@@ -11,5 +11,7 @@ namespace dr.Domain.Entities.TimeTable
     public interface ITimeTableRepository : IGenericRepository<TimeTable>
     {
         List<TimeTableViewModel> Search(TimeTableSearchModel  search);
+        List<TimeTableViewModel> List();
+        TimeTableEditModel GetDetails(int id);
     }
 }

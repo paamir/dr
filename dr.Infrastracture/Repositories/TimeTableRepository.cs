@@ -30,13 +30,32 @@ namespace dr.Infrastracture.Repositories
             {
                 CreationDate = x.CreationDate.ToPersianDate(),
                 Id = x.Id,
-                Name = x.Name
+                Name = x.Name,
+                ItUsed = x.ItUsed
             });
             if (!string.IsNullOrWhiteSpace(search.Name))
             {
                 query = query.Where(x => x.Name.Contains(search.Name));
             }
             return query.ToList();
+        }
+
+        public List<TimeTableViewModel> List()
+        {
+            return _dbContext.TimeTables.Where(x => !x.ItUsed).Select(x => new TimeTableViewModel()
+            {
+                Name = x.Name,
+                Id = x.Id,
+            }).ToList() ?? new List<TimeTableViewModel>();
+        }
+
+        public TimeTableEditModel GetDetails(int id)
+        {
+            return _dbContext.TimeTables.Select(x => new TimeTableEditModel()
+            {
+                Name = x.Name,
+                Id = x.Id,
+            }).FirstOrDefault(x => x.Id == id) ?? new TimeTableEditModel();
         }
     }
 }

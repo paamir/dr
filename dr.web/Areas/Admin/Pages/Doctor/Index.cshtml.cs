@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using dr.Application.Contract.Doctor;
+using dr.Application.Contract.TimeTable;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -9,10 +10,11 @@ namespace dr.Web.Areas.Admin.Pages.Doctor
     public class IndexModel : PageModel
     {
         private readonly IDoctorApplication _application;
-
-        public IndexModel(IDoctorApplication application)
+        private readonly ITimeTableApplication _timeTableApplication;
+        public IndexModel(IDoctorApplication application, ITimeTableApplication timeTableApplication)
         {
             _application = application;
+            _timeTableApplication = timeTableApplication;
         }
 
         public string Message { get; set; }
@@ -27,7 +29,11 @@ namespace dr.Web.Areas.Admin.Pages.Doctor
 
         public IActionResult OnGetCreate()
         {
-            return Partial("Create");
+            var doctor = new DoctorCreateModel
+            {
+                AvailableTimeTables = _timeTableApplication.List() 
+            };
+            return Partial("Create", doctor);
         }
 
         public IActionResult OnPostCreate(DoctorCreateModel model)
@@ -43,6 +49,7 @@ namespace dr.Web.Areas.Admin.Pages.Doctor
         public IActionResult OnGetEdit(int id)
         {
             var doctor = _application.GetDetails(id);
+            doctor.AvailableTimeTables = _timeTableApplication.List();
             return Partial("Edit", doctor);
         }
 

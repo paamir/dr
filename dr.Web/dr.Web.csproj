@@ -18,4 +18,8 @@
     <ProjectReference Include="..\dr.Infrastracture\dr.Infrastracture.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\MoltranTheme\" />
+  </ItemGroup>
+
 </Project>
