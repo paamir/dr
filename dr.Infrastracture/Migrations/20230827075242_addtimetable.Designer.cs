@@ -10,8 +10,8 @@ using dr.Infrastracture;
 namespace dr.Infrastracture.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230822080053_AddDoctorTable")]
-    partial class AddDoctorTable
+    [Migration("20230827075242_addtimetable")]
+    partial class addtimetable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,7 +49,13 @@ namespace dr.Infrastracture.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<int>("TimeTableId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TimeTableId")
+                        .IsUnique();
 
                     b.ToTable("Doctors");
                 });
@@ -107,24 +113,45 @@ namespace dr.Infrastracture.Migrations
                         new
                         {
                             Id = 1,
-                            CreationDate = new DateTime(2023, 8, 22, 11, 30, 52, 884, DateTimeKind.Local).AddTicks(8824),
+                            CreationDate = new DateTime(2023, 8, 27, 11, 22, 42, 408, DateTimeKind.Local).AddTicks(8115),
                             FaName = "دکتر",
                             Name = "Doctor"
                         },
                         new
                         {
                             Id = 2,
-                            CreationDate = new DateTime(2023, 8, 22, 11, 30, 52, 887, DateTimeKind.Local).AddTicks(4296),
+                            CreationDate = new DateTime(2023, 8, 27, 11, 22, 42, 410, DateTimeKind.Local).AddTicks(5197),
                             FaName = "منشی",
                             Name = "assistant"
                         },
                         new
                         {
                             Id = 3,
-                            CreationDate = new DateTime(2023, 8, 22, 11, 30, 52, 887, DateTimeKind.Local).AddTicks(4314),
+                            CreationDate = new DateTime(2023, 8, 27, 11, 22, 42, 410, DateTimeKind.Local).AddTicks(5217),
                             FaName = "مشتری",
                             Name = "Customer"
                         });
+                });
+
+            modelBuilder.Entity("dr.Domain.Entities.TimeTable.TimeTable", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("ItUsed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TimeTables");
                 });
 
             modelBuilder.Entity("dr.Domain.Entities.User.User", b =>
@@ -167,6 +194,17 @@ namespace dr.Infrastracture.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("dr.Domain.Entities.Doctor.Doctor", b =>
+                {
+                    b.HasOne("dr.Domain.Entities.TimeTable.TimeTable", "TimeTable")
+                        .WithOne("Doctor")
+                        .HasForeignKey("dr.Domain.Entities.Doctor.Doctor", "TimeTableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TimeTable");
+                });
+
             modelBuilder.Entity("dr.Domain.Entities.RecoveryCode.RecoverCode", b =>
                 {
                     b.HasOne("dr.Domain.Entities.User.User", "User")
@@ -176,6 +214,45 @@ namespace dr.Infrastracture.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("dr.Domain.Entities.TimeTable.TimeTable", b =>
+                {
+                    b.OwnsMany("dr.Domain.Entities.ShifHours.ShiftHours", "ShiftHoursList", b1 =>
+                        {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<DateTime>("CreationDate")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<DateTime>("EndDate")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<bool>("IsReserved")
+                                .HasColumnType("bit");
+
+                            b1.Property<DateTime>("StartDate")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<int>("TimeTableId")
+                                .HasColumnType("int");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("TimeTableId");
+
+                            b1.ToTable("ShiftTimes");
+
+                            b1.WithOwner("TimeTable")
+                                .HasForeignKey("TimeTableId");
+
+                            b1.Navigation("TimeTable");
+                        });
+
+                    b.Navigation("ShiftHoursList");
                 });
 
             modelBuilder.Entity("dr.Domain.Entities.User.User", b =>
@@ -192,6 +269,11 @@ namespace dr.Infrastracture.Migrations
             modelBuilder.Entity("dr.Domain.Entities.Role.Role", b =>
                 {
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("dr.Domain.Entities.TimeTable.TimeTable", b =>
+                {
+                    b.Navigation("Doctor");
                 });
 
             modelBuilder.Entity("dr.Domain.Entities.User.User", b =>

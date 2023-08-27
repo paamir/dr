@@ -1,0 +1,36 @@
+﻿@model dr.Application.Contract.SiftHours.ShiftHoursCreateModel
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	<h4 class="modal-title">تعریف شیفت جدید</h4>
+</div>
+
+<form asp-page="./Create" asp-page-handler="AddShift"
+	  method="post"
+	  data-ajax="true"
+	  data-callback=""
+      data-action="setValue"
+      element="@Model.Id"
+	  enctype="multipart/form-data">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="StartDate" class="control-label">تاریخ شروع شیفت</label>
+                    <input type="text" class="form-control datetimePersian" asp-for="StartDate">
+                    <span asp-validation-for="StartDate" class="error"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="EndDate" class="control-label">پایان شروع شیفت</</label>
+                    <input type="text" class="form-control" asp-for="EndDate">
+                    <span asp-validation-for="EndDate" class="error"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+		<button type="submit" class="btn btn-info waves-effect waves-light">ایجاد</button>
+	</div>
+</form>
